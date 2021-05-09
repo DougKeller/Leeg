@@ -1,3 +1,7 @@
+github.com/DougKeller/golio v0.0.0-20210509182114-c6134bdc32c6 h1:OI753pS+F32yP4nvc9gboKs31Wq89n5VXoTrgPG3WJc=
+github.com/DougKeller/golio v0.0.0-20210509182114-c6134bdc32c6/go.mod h1:suVrTF2nfYIjpXnjsALoI8+ZpMrwqURbBjjVzkF1zKM=
+github.com/DougKeller/golio v0.0.0-20210509194444-a540114376b9 h1:Wg2eAxtClTKLJYDLzMveE1S0loymPZNF98zOctTGZpU=
+github.com/DougKeller/golio v0.0.0-20210509194444-a540114376b9/go.mod h1:suVrTF2nfYIjpXnjsALoI8+ZpMrwqURbBjjVzkF1zKM=
 github.com/KnutZuidema/golio v0.0.0-20210209144508-671837199bbc h1:py4XCvC8DDy1fKuLm9bm5bYH5dM8yBWEYIVinYfVv3A=
 github.com/KnutZuidema/golio v0.0.0-20210209144508-671837199bbc/go.mod h1:suVrTF2nfYIjpXnjsALoI8+ZpMrwqURbBjjVzkF1zKM=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

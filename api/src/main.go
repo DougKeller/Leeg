@@ -1,7 +1,6 @@
 package main
 
 import (
-  "os"
   "log"
   "net/http"
   "io/ioutil"
@@ -11,7 +10,8 @@ import (
 )
 
 func GetGolioClient() *golio.Client {
-  client := golio.NewClient(os.Getenv("RIOT_API_KEY"),
+  // Since we use kernel, it is not necessary to provide the true api key
+  client := golio.NewClient("123",
             golio.WithRegion(api.RegionNorthAmerica))
   return client
 }

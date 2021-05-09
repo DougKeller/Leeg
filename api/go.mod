@@ -19,3 +19,5 @@ require (
 	golang.org/x/text v0.3.6 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
+
+replace github.com/KnutZuidema/golio => github.com/DougKeller/golio v0.0.0-20210509194444-a540114376b9
