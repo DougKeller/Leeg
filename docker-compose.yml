@@ -4,12 +4,14 @@ services:
     image: golang:buster
     command: go run ./src/main.go
     working_dir: /home/app/api
+    environment:
+      - RIOT_API_KEY
     ports:
       - 4000:4000
     volumes:
       - ./api:/home/app/api
     networks:
-      - leeg_backend
+      - leeg_internal
 
   kernel:
     image: merakianalytics/kernel:mongo
@@ -22,7 +24,7 @@ services:
     volumes:
     - ./kernel/etc/kernel-config.json:/opt/meraki/kernel-config.json
     networks:
-      - leeg_backend
+      - leeg_internal
 
   swagger:
     image: swaggerapi/swagger-ui
@@ -33,13 +35,13 @@ services:
     depends_on:
       - kernel
     networks:
-      - leeg_backend
+      - leeg_internal
 
   mongo:
     image: mongo:jessie
     networks:
-      - leeg_backend
+      - leeg_internal
 
 networks:
-  leeg_backend:
+  leeg_internal:
     driver: bridge
