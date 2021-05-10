@@ -1,5 +1,14 @@
 version: "3.9"
 services:
+  web:
+    image: node:latest
+    command: ./start.sh
+    working_dir: /home/app/web
+    ports:
+      - 8080:3000
+    volumes:
+      - ./web:/home/app/web
+
   api:
     image: golang:buster
     command: go run ./src/main.go
