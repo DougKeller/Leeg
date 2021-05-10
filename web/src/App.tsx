@@ -15,7 +15,7 @@ function App() {
   const [summoner, setSummoner] = useState({} as Summoner);
 
   useEffect(() => {
-    fetch('http://localhost:4000/summoner/ifeed')
+    fetch('http://localhost:4300/summoner/ifeed')
       .then(res => res.json())
       .then(result => {
         setSummoner(result);
