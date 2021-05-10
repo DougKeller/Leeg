@@ -1,24 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+type Summoner = {
+  accountId: string;
+  id: string;
+  name: string;
+  profileIconId: number;
+  puuid: string;
+  revisionDate: number;
+  summonerLevel: number;
+}
+
 function App() {
+  const [summoner, setSummoner] = useState({} as Summoner);
+
+  useEffect(() => {
+    fetch('http://localhost:4000/summoner/ifeed')
+      .then(res => res.json())
+      .then(result => {
+        setSummoner(result);
+      });
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>{summoner.name}</h1>
+      <h3>Level {summoner.summonerLevel}</h3>
     </div>
   );
 }

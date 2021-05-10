@@ -5,6 +5,7 @@ import (
   "net/http"
   "io/ioutil"
   "github.com/gin-gonic/gin"
+  "github.com/gin-contrib/cors"
   "github.com/KnutZuidema/golio"
   "github.com/KnutZuidema/golio/api"
 )
@@ -18,6 +19,10 @@ func GetGolioClient() *golio.Client {
 
 func setupRouter() *gin.Engine {
 	router := gin.Default()
+
+  router.Use(cors.New(cors.Config{
+    AllowOrigins: []string{"*"},
+  }))
 
 	router.GET("/", func(c *gin.Context) {
 		c.String(http.StatusOK, "Thanks for hitting this endpoint, fink")
