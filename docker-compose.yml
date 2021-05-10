@@ -8,15 +8,22 @@ services:
       - 4200:3000
     volumes:
       - ./web:/home/app/web
+    depends_on:
+      - api
 
   api:
     image: golang:buster
-    command: go run ./src/main.go
+    command: ./start.sh
     working_dir: /home/app/api
     ports:
       - 4300:4000
     volumes:
       - ./api:/home/app/api
+    depends_on:
+      - kernel
+      - mongo
+    networks:
+      - backend
 
   kernel:
     image: merakianalytics/kernel:mongo
@@ -28,11 +35,13 @@ services:
       - mongo
     volumes:
     - ./kernel/etc/kernel-config.json:/opt/meraki/kernel-config.json
+    networks:
+      - backend
 
   swagger:
     image: swaggerapi/swagger-ui
     ports:
-      - 4320:8080
+      - 4311:8080
     environment:
       - API_URL=http://localhost:4310/lol/swagger.json
     depends_on:
@@ -41,9 +50,15 @@ services:
   mongo:
     image: mongo:jessie
     ports:
-      - 4330:27017
+      - 4320:27017
     volumes:
       - mongodb:/data/db
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
 
 volumes:
   mongodb: {}
