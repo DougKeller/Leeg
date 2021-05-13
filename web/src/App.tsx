@@ -5,6 +5,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
+      <h1>lee.gg</h1>
       <SummonerLookupContainer />
     </div>
   );

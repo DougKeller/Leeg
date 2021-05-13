@@ -10,6 +10,8 @@ func SetupRouter() *gin.Engine {
 
   router.Use(cors.New(cors.Config{
     AllowOrigins: []string{"*"},
+    AllowMethods: []string{"GET", "PUT", "POST", "DELETE"},
+    AllowHeaders: []string{"Content-Type"},
   }))
 
   summonerRoutes(router)
