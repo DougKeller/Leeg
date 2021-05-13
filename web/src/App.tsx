@@ -1,5 +1,6 @@
 import React from 'react';
 import SummonerLookupContainer from './SummonerLookup/SummonerLookupContainer'
+import './App.css';
 
 function App() {
   return (

@@ -1,24 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import SummonerLookupTable from './SummonerLookupTable'
-import { Summoner, testSummoner } from './SummonerLookup.model';
-import './SummonerLookup.css';
+import Loading from '../Loading/Loading';
+import { Summoner } from './SummonerLookup.model';
+import Http from '../common/http';
+
+type State = {
+  error?: boolean
+  summoner?: Summoner
+};
 
 function SummonerLookupContainer() {
-  const [summoner, setSummoner] = useState(testSummoner as Summoner);
+  const summonerName = 'iFeed';
+  const [state, setState] = useState<State>({});
 
   useEffect(() => {
-    fetch('http://localhost:4300/summoner/ifeed')
-      .then(res => res.json())
-      .then(result => {
-        setSummoner(result);
-      });
+    const url = 'http://localhost:4300/summoners/find?name=' + encodeURIComponent(summonerName);
+    Http.get<Summoner>(url).then(summoner => {
+      setState({ summoner });
+    }).catch((error) => {
+      setState({ error: true });
+    });
   }, []);
 
-  return (
-    <div className="summoner-lookup">
-      <SummonerLookupTable summonerData={summoner} />
-    </div>
-  );
+  if (state.summoner) {
+    return <SummonerLookupTable summonerData={state.summoner} />;
+  }
+
+  if (state.error) {
+    return <h3>Summoner not found: {summonerName}</h3>;
+  }
+
+  return <Loading />;
 }
 
 export default SummonerLookupContainer;
