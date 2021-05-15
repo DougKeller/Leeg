@@ -26,11 +26,11 @@ services:
       - backend
 
   node_api:
-    image: golang:buster
+    image: node:latest
     command: ./start.sh
     working_dir: /home/app/api
     ports:
-      - 4300:4000
+      - 4400:4000
     volumes:
       - ./node_api:/home/app/api
     depends_on:
