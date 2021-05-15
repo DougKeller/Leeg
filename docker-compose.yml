@@ -25,6 +25,20 @@ services:
     networks:
       - backend
 
+  node_api:
+    image: golang:buster
+    command: ./start.sh
+    working_dir: /home/app/api
+    ports:
+      - 4300:4000
+    volumes:
+      - ./node_api:/home/app/api
+    depends_on:
+      - kernel
+      - mongo
+    networks:
+      - backend
+
   kernel:
     image: merakianalytics/kernel:mongo
     ports:
