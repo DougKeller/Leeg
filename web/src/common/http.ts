@@ -5,7 +5,20 @@ const parseResponse = <T>(response: Response) => {
     throw response;
   }
 
-  return response.json() as unknown as T;
+  const contentType = response.headers.get('Content-Type');
+  if (!contentType) {
+    return null as unknown as T;
+  }
+
+  if (contentType.includes('application/json')) {
+    return response.json() as unknown as T;
+  }
+
+  if (contentType.includes('text/plain')) {
+    return response.text() as unknown as T;
+  }
+
+  throw new Error(`Unsupported response type: ${contentType}`);
 };
 
 const get = async <T>(url: string): Promise<T> => {
