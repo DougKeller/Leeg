@@ -1,3 +1,3 @@
 #!/bin/bash
-cd ./src
-go run ./main.go
+npm install
+npm run start

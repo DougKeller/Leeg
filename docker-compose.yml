@@ -12,45 +12,34 @@ services:
       - api
 
   api:
-    image: golang:buster
+    image: node:latest
     command: ./start.sh
     working_dir: /home/app/api
     ports:
       - 4300:4000
+    environment:
+      - RIOT_API_KEY
+      - MONGO_HOST
     volumes:
       - ./api:/home/app/api
     depends_on:
-      - kernel
+      - redis
       - mongo
+      - rabbitmq
     networks:
       - backend
 
-  kernel:
-    image: merakianalytics/kernel:mongo
-    ports:
-      - 4310:8080
-    environment:
-      - RIOT_API_KEY
-    depends_on:
-      - mongo
+  redis:
+    image: redis:buster
     volumes:
-    - ./kernel/etc/kernel-config.json:/opt/meraki/kernel-config.json
+      - redis:/data
     networks:
       - backend
-
-  swagger:
-    image: swaggerapi/swagger-ui
-    ports:
-      - 4311:8080
-    environment:
-      - API_URL=http://localhost:4310/lol/swagger.json
-    depends_on:
-      - kernel
 
   mongo:
     image: mongo:jessie
     ports:
-      - 4320:27017
+      - 4310:27017
     volumes:
       - mongodb:/data/db
     networks:
@@ -59,8 +48,7 @@ services:
   rabbitmq:
     image: rabbitmq:management
     ports:
-      - 4330:15672 # management UI - default credentials are guest:guest
-      - 4331:5672
+      - 4320:15672 # management UI - default credentials are guest:guest
     networks:
       - backend
 
@@ -70,3 +58,4 @@ networks:
 
 volumes:
   mongodb: {}
+  redis: {}
