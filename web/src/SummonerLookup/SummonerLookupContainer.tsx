@@ -1,8 +1,12 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import SummonerLookupTable from './SummonerLookupTable'
 import Loading from '../Loading/Loading';
-import { Summoner } from './SummonerLookup.model';
+import { Summoner, mockSummoner } from './SummonerLookup.model';
 import Http from '../common/http';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+import './SummonerLookup.css';
 
 type State = {
   summonerName?: string
@@ -10,6 +14,27 @@ type State = {
   error?: boolean
   summoner?: Summoner
 };
+
+const StyledTextField = withStyles({
+  root: {
+    background: 'white',
+    margin: '0 0 10px 0',
+    "& .Mui-focused": {
+      color: "#9ab8ce",
+      "& .MuiOutlinedInput-notchedOutline": {
+        borderColor: "#9ab8ce"
+      }
+    }
+  }
+})(TextField);
+
+const StyledButton = withStyles({
+  root: {
+    background: '#9ab8ce',
+    margin: '0 0 10px 0',
+    color: 'black'
+  }
+})(Button);
 
 function SummonerLookupContainer() {
   const [state, setState] = useState<State>({});
@@ -34,12 +59,14 @@ function SummonerLookupContainer() {
     }).catch((error) => {
       setState({ error: true, summonerName });
     });
+
+    //setState({ loading: false, summoner: mockSummoner });
   };
 
   const findBox = (
-    <form onSubmit={findSummoner}>
-      <input autoFocus type="text" onChange={enteredText} required />
-      <button type="submit">Find</button>
+    <form onSubmit={findSummoner} className='search-container'>
+      <StyledTextField id="outlined-basic" label="Summoner Name" variant="outlined" type="text" onChange={enteredText} required/>
+      <StyledButton type="submit">Find</StyledButton>
     </form>
   );
 
