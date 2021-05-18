@@ -1,5 +1,5 @@
 import express from 'express';
-import summonerService from '../service/summoner.service';
+import summonerService from '@leeg/service/summoner.service';
 
 const initialize = (app: express.Application) => {
   app.get('/summoners/find', (request, response) => {
@@ -12,7 +12,10 @@ const initialize = (app: express.Application) => {
 
     summonerService.getByName(summonerName).then(
       summoner => response.json(summoner),
-      error => response.sendStatus(error.statusCode)
+      error => {
+        console.error(error);
+        response.sendStatus(error.statusCode)
+      }
     );
   });
 
